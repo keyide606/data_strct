@@ -116,7 +116,10 @@ public class HashMap<K, V> implements Map<K, V> {
             }
         }
         System.out.println("原来长度:" + oldTable.length + ",当前长度:" + table.length);
-        //
+        // 将原来的数组释放
+        for (int i = 0; i < oldTable.length; i++) {
+            oldTable[i] = null;
+        }
     }
 
     private void moveNode(Node<K, V> node) {
