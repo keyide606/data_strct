@@ -6,15 +6,15 @@ package com.lwl.map;
  */
 public class Main {
     public static void main(String[] args) {
-//        Map<Object, Integer> map = new HashMap<>();
-//        testSize(map);
-//        testGet(map);
-//        testContainsKey(map);
-//        testContainsValue(map);
-//
-//        testHashcode(map);
-//        testClear(map);
-//        testRemove(map);
+        Map<Object, Integer> map = new HashMap<>();
+        testSize(map);
+        testGet(map);
+        testContainsKey(map);
+        testContainsValue(map);
+
+        testHashcode(map);
+        testClear(map);
+        testRemove(map);
         testResize();
     }
 

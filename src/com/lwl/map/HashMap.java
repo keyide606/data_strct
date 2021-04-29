@@ -43,7 +43,7 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public V put(K key, V value) {
         checkKey(key);
-        // 扩容
+        // 进行扩容
         resize();
         int index = index(key);
         Node<K, V> root = table[index];
@@ -57,25 +57,52 @@ public class HashMap<K, V> implements Map<K, V> {
         // 添加的不是跟节点
         Node<K, V> node = root;
         Node<K, V> parent = root;
-        int compare = 0;
-        int oneHashCode = key == null ? 0 : key.hashCode();
+        int cmp = 0;
+        int keyHashCode = key == null ? 0 : key.hashCode();
+        Node<K, V> result;
+        boolean searched = false;
         while (node != null) {
-            int cmp = compareNode(key, node.getKey(), oneHashCode, node.getHashcode());
-            compare = cmp;
+            K nodeKey = node.getKey();
+            int nodeHashcode = node.hashcode;
+            // 当前父节点为node
             parent = node;
+
+            if (keyHashCode > nodeHashcode) {
+                cmp = 1;
+            } else if (keyHashCode < nodeHashcode) {
+                cmp = -1;
+            } else if (Objects.equals(key, nodeKey)) {
+                cmp = 0;
+            } else if (key != null && nodeKey != null
+                    && key.getClass() == nodeKey.getClass()
+                    && key instanceof Comparable
+                    && (cmp = ((Comparable) key).compareTo(nodeKey)) != 0) {
+
+            } else if (searched) {
+                cmp = System.identityHashCode(key) - System.identityHashCode(nodeKey);
+            } else {
+                // 进行遍历,寻找当前树中是否有想用节点
+                if ((node.right != null && (result = node(node.right, key)) != null)
+                        || (node.left != null && (result = node(node.left, key)) != null)) {
+                    node = result;
+                    cmp = 0;
+                } else {
+                    cmp = System.identityHashCode(key) - System.identityHashCode(nodeKey);
+                    searched = true;
+                }
+            }
             if (cmp > 0) {
                 node = node.getRight();
             } else if (cmp < 0) {
                 node = node.getLeft();
             } else {
-                // 还有一些问题,比如hashcode一样但是equals不一样
                 V v = node.getValue();
                 node.setKey(key);
                 node.setValue(value);
                 return v;
             }
         }
-        if (compare > 0) {
+        if (cmp > 0) {
             Node<K, V> rightNode = createNode(key, value, parent);
             parent.right = rightNode;
             afterAdd(rightNode);
@@ -139,14 +166,28 @@ public class HashMap<K, V> implements Map<K, V> {
         Node<K, V> temp = root;
         Node<K, V> parent = root;
         int compare = 0;
-        int oneHashCode = node.hashcode;
+        int nodeHashCode = node.hashcode;
+        K nodeKey = node.getKey();
         while (temp != null) {
-            int cmp = compareNode(node.getKey(), temp.getKey(), oneHashCode, temp.getHashcode());
-            compare = cmp;
+            K tempKey = temp.getKey();
+            int tempHashcode = temp.hashcode;
+            if (nodeHashCode > tempHashcode) {
+                compare = 1;
+            } else if (nodeHashCode < tempHashcode) {
+                compare = -1;
+            } else if (Objects.equals(tempKey, nodeKey)) {
+                compare = 0;
+            } else if (nodeKey != null && tempKey != null
+                    && nodeKey.getClass() == tempKey.getClass()
+                    && nodeKey instanceof Comparable
+                    && (compare = ((Comparable) nodeKey).compareTo(tempKey)) != 0) {
+            } else {
+                compare = System.identityHashCode(nodeKey) - System.identityHashCode(nodeKey);
+            }
             parent = temp;
-            if (cmp > 0) {
+            if (compare > 0) {
                 temp = temp.getRight();
-            } else if (cmp < 0) {
+            } else if (compare < 0) {
                 temp = temp.getLeft();
             }
         }
@@ -230,17 +271,45 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private Node<K, V> node(K key) {
-        int index = index(key);
-        Node<K, V> node = table[index];
-        int hashcode = key == null ? 0 : key.hashCode();
-        while (node != null) {
-            int cmp = compareNode(key, node.getKey(), hashcode, node.hashcode);
-            if (cmp < 0) {
-                node = node.left;
-            } else if (cmp > 0) {
-                node = node.right;
+        Node<K, V> root = table[index(key)];
+        return root == null ? null : node(root, key);
+    }
+
+    private Node<K, V> node(Node<K, V> root, K key) {
+        int keyHashCode = key == null ? 0 : key.hashCode();
+        Node result;
+        while (root != null) {
+            K rootKey = root.getKey();
+            if (keyHashCode > root.hashcode) {
+                root = root.right;
+            } else if (keyHashCode < root.hashcode) {
+                root = root.left;
+            } else if (Objects.equals(key, rootKey)) {
+                return root;
             } else {
-                return node;
+                /*
+                hashcode相同,equals不同如果是用一类型而且都不为null,
+                并且实现了Comparable接口,那么进行比较
+                 */
+                if (key != null && rootKey != null
+                        && key.getClass() == rootKey.getClass()
+                        && key instanceof Comparable) {
+                    int cmp = ((Comparable) key).compareTo(rootKey);
+                    if (cmp > 0) {
+                        root = root.right;
+                    } else if (cmp < 0) {
+                        root = root.left;
+                    } else {
+                        return root;
+                    }
+                } else {
+                    // 下面这种情况,对所有的节点进行遍历
+                    if (root.right != null && (result = node(root.right, key)) != null) {
+                        return result;
+                    } else {
+                        root = root.left;
+                    }
+                }
             }
         }
         return null;
