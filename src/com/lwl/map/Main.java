@@ -6,15 +6,16 @@ package com.lwl.map;
  */
 public class Main {
     public static void main(String[] args) {
-        Map<Object, Integer> map = new HashMap<>();
-        testSize(map);
-        testGet(map);
-        testContainsKey(map);
-        testContainsValue(map);
-
-        testHashcode(map);
-        testClear(map);
-        testRemove(map);
+//        Map<Object, Integer> map = new HashMap<>();
+//        testSize(map);
+//        testGet(map);
+//        testContainsKey(map);
+//        testContainsValue(map);
+//
+//        testHashcode(map);
+//        testClear(map);
+//        testRemove(map);
+        testResize();
     }
 
 
@@ -75,5 +76,17 @@ public class Main {
         map.remove("omg");
         System.out.println(map.get("omg"));
         System.out.println(map.size());
+    }
+
+    static void testResize() {
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < 500; i++) {
+            map.put("a" + i, i);
+        }
+        System.out.println("----------测试所有值---------");
+        for (int i = 0; i < 500; i++) {
+            System.out.println(map.containsKey("a" + i));
+            System.out.println(map.get("a" + i));
+        }
     }
 }

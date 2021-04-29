@@ -11,7 +11,7 @@ import java.util.Queue;
  */
 public class HashMap<K, V> implements Map<K, V> {
     private static final int DEFAULT_CAPACITY = 1 << 4;
-
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
     private int size;
     private Node<K, V>[] table;
 
@@ -43,6 +43,8 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public V put(K key, V value) {
         checkKey(key);
+        // 扩容
+        resize();
         int index = index(key);
         Node<K, V> root = table[index];
         // 添加的是根节点
@@ -85,6 +87,77 @@ public class HashMap<K, V> implements Map<K, V> {
             size++;
         }
         return null;
+    }
+
+    private void resize() {
+        if (size <= ((int) (table.length * DEFAULT_LOAD_FACTOR))) {
+            return;
+        }
+        // 进行扩容
+        Node[] oldTable = table;
+        table = new Node[table.length << 1];
+        Queue<Node> queue = new LinkedList<>();
+        for (int i = 0; i < oldTable.length; i++) {
+            if (oldTable[i] == null) {
+                continue;
+            }
+            Node root = oldTable[i];
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                // 相当于在新的数组中添加元素
+                Node temp = queue.poll();
+                if (temp.left != null) {
+                    queue.offer(temp.left);
+                }
+                if (temp.right != null) {
+                    queue.offer(temp.right);
+                }
+                moveNode(temp);
+            }
+        }
+        System.out.println("原来长度:" + oldTable.length + ",当前长度:" + table.length);
+        //
+    }
+
+    private void moveNode(Node<K, V> node) {
+        int index = index(node);
+        node.parent = null;
+        node.left = null;
+        node.right = null;
+
+        Node<K, V> root = table[index];
+        // 添加的是根节点
+        if (root == null) {
+            root = node;
+            table[index] = root;
+            return;
+        }
+        // 添加的不是跟节点
+        Node<K, V> temp = root;
+        Node<K, V> parent = root;
+        int compare = 0;
+        int oneHashCode = node.hashcode;
+        while (temp != null) {
+            int cmp = compareNode(node.getKey(), temp.getKey(), oneHashCode, temp.getHashcode());
+            compare = cmp;
+            parent = temp;
+            if (cmp > 0) {
+                temp = temp.getRight();
+            } else if (cmp < 0) {
+                temp = temp.getLeft();
+            }
+        }
+        if (compare > 0) {
+            Node<K, V> rightNode = node;
+            node.setParent(parent);
+            parent.right = rightNode;
+            afterAdd(rightNode);
+        } else {
+            Node<K, V> leftNode = node;
+            node.setParent(parent);
+            parent.left = leftNode;
+            afterAdd(leftNode);
+        }
     }
 
     @Override
@@ -147,6 +220,10 @@ public class HashMap<K, V> implements Map<K, V> {
         hashcode = hashcode ^ hashcode >> 16;
 
         return hashcode & (table.length - 1);
+    }
+
+    private int index(Node<K, V> node) {
+        return index(node.getKey());
     }
 
     private Node<K, V> node(K key) {
