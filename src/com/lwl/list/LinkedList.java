@@ -46,7 +46,7 @@ public class LinkedList<E> extends AbstractList<E> {
             last.next = newNode;
             newNode.prev = last;
             last = newNode;
-        }else {
+        } else {
             Node<E> node = getNode(index);
             // 先让新加节点的上一个节点和下一个节点确定
             newNode.next = node;
@@ -132,7 +132,7 @@ public class LinkedList<E> extends AbstractList<E> {
     }
 
     // 静态内部类
-    static class Node<E> {
+    private static class Node<E> {
         E element;
         Node<E> next;
         Node<E> prev;

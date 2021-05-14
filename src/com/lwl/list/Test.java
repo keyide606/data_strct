@@ -3,8 +3,9 @@ package com.lwl.list;
 
 public class Test {
     public static void main(String[] args) {
-       // testArrayList();
-      testLinkedList();
+        // testArrayList();
+        //testLinkedList();
+        testSingleLinkedList();
     }
 
 
@@ -56,5 +57,31 @@ public class Test {
         System.out.println(personList.toString());
         System.out.println(personList.contains(new Person("zs", 20)));
         System.out.println(personList.contains(new Person("zs", 30)));
+    }
+
+
+    private static void testSingleLinkedList() {
+        List<Person> list = new SingleLinkedList<>();
+
+        System.out.println(list.isEmpty());
+        System.out.println(list.size());
+
+        list.add(new Person("ww", 22));
+        list.add(new Person("ls", 21));
+        list.add(new Person("zs", 20));
+        System.out.println(list.isEmpty());
+        System.out.println(list.size());
+
+
+        System.out.println("set方法");
+        System.out.println(list.toString());
+        list.set(1, new Person("zl", 29));
+        System.out.println(list.toString());
+        list.add(2, new Person("long", 18));
+        System.out.println(list.toString());
+        System.out.println(list.contains(new Person("zs", 30)));
+        System.out.println(list.contains(new Person("zs", 20)));
+        list.remove(2);
+        System.out.println(list.toString());
     }
 }
