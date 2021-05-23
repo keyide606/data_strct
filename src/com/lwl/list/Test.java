@@ -4,8 +4,9 @@ package com.lwl.list;
 public class Test {
     public static void main(String[] args) {
         // testArrayList();
-        //testLinkedList();
-        testSingleLinkedList();
+        // testLinkedList();
+        // testSingleLinkedList();
+        testSimpleSkipList();
     }
 
 
@@ -83,5 +84,22 @@ public class Test {
         System.out.println(list.contains(new Person("zs", 20)));
         list.remove(2);
         System.out.println(list.toString());
+    }
+
+
+    private static void testSimpleSkipList() {
+        SimpleSkipList<String, Integer> skipList = new SimpleSkipList<>();
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.size());
+        skipList.put("hello", 1);
+        skipList.put("world", 2);
+        skipList.put("java", 3);
+        skipList.put("good", 4);
+        skipList.put("nice", 5);
+        System.out.println(skipList.isEmpty());
+        System.out.println(skipList.size());
+        System.out.println(skipList.get("world"));
+        System.out.println(skipList.remove("good"));
+        System.out.println(skipList.size());
     }
 }
