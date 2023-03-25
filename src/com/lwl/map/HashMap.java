@@ -541,7 +541,7 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param <K>
      * @param <V>
      */
-    private static class Node<K, V> {
+     static class Node<K, V> {
         int height = 1;
         int hashcode;
         K key;
