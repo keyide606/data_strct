@@ -6,7 +6,7 @@ import java.util.Queue;
 
 /**
  * @author liwenlong
- * HashMap是基于AVL树和数组实现的
+ * 此HashMap是基于AVL树和数组实现的
  * @date 2021-04-20 17:46
  */
 public class HashMap<K, V> implements Map<K, V> {

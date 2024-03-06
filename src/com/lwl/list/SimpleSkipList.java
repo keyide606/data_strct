@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 /**
  * @author liwenlong
- * 此跳表实现和JavaConcurrentSkipListMap不想同
+ * 此跳表实现和JavaConcurrentSkipListMap不相同
  * @date 2021-05-14 18:23
  */
 public class SimpleSkipList<K, V> {
