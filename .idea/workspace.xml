@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b74a4d2-d862-4d8b-9a0e-8cc3c051e929" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/lwl/list/Queue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/lwl/list/SimpleSkipList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/list/SimpleSkipList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/lwl/map/HashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/map/HashMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/lwl/map/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/map/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lwl/list/LinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/list/LinkedList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +134,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../algorithm" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -226,6 +226,9 @@
       <workItem from="1682847763071" duration="319000" />
       <workItem from="1699702526942" duration="111000" />
       <workItem from="1709645521297" duration="288000" />
+      <workItem from="1709731099176" duration="1236000" />
+      <workItem from="1710054694754" duration="3765000" />
+      <workItem from="1710558270382" duration="6612000" />
     </task>
     <servers />
   </component>

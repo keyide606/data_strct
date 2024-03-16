@@ -1,8 +1,7 @@
 package com.lwl.list;
 
 
-public class LinkedList<E> extends AbstractList<E> {
-
+public class LinkedList<E> extends AbstractList<E> implements Queue<E> {
     private Node<E> first;
     private Node<E> last;
 
@@ -129,6 +128,22 @@ public class LinkedList<E> extends AbstractList<E> {
         }
         string.setCharAt(string.length() - 1, ']');
         return string.toString();
+    }
+
+    @Override
+    public void enQueue(E element) {
+        add(size, element);
+    }
+
+    @Override
+    public E deQueue() {
+        return remove(0);
+    }
+
+    @Override
+    public E front() {
+        E element = get(0);
+        return element;
     }
 
     // 静态内部类
