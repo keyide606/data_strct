@@ -1,6 +1,7 @@
 package com.lwl.heap;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * 二叉堆的实现
@@ -46,7 +47,12 @@ public class BinaryHeap<E> implements Heap<E> {
 
     @Override
     public void add(E element) {
-
+        if (Objects.isNull(element)) {
+            return;
+        }
+        ensureCapacity();
+        elements[size++] = element;
+        siftUp(size - 1);
     }
 
     @Override
@@ -75,4 +81,43 @@ public class BinaryHeap<E> implements Heap<E> {
             throw new ArrayIndexOutOfBoundsException("heap is empty");
         }
     }
+
+    private void ensureCapacity() {
+        if (elements.length > size) {
+            return;
+        } else {
+            int oldCapacity = elements.length;
+
+            int newCapacity = elements.length + (elements.length >> 1);
+
+            E[] newElements = (E[]) new Object[newCapacity];
+
+            for (int i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
+
+            System.out.println("list进行了扩容,原capacity=" + oldCapacity + ",新的capacity=" + newCapacity);
+        }
+    }
+
+    /**
+     * 二叉堆上滤
+     * @param index
+     */
+    private void siftUp(int index) {
+        E e = elements[index];
+        while (index > 0) {
+            int parent = (index - 1) >> 2;
+            E p = elements[parent];
+            if (compare(e, p) <= 0) {
+                break;
+            }
+            elements[index] = p;
+            index = parent;
+        }
+        elements[index] = e;
+    }
+
+
 }
