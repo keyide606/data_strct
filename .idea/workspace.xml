@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b74a4d2-d862-4d8b-9a0e-8cc3c051e929" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lwl/heap/BinaryHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/heap/BinaryHeap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -227,7 +226,7 @@
       <workItem from="1710054694754" duration="3765000" />
       <workItem from="1710558270382" duration="8180000" />
       <workItem from="1710655502117" duration="3415000" />
-      <workItem from="1710676385363" duration="1288000" />
+      <workItem from="1710676385363" duration="1602000" />
     </task>
     <servers />
   </component>

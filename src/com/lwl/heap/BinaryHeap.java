@@ -74,7 +74,18 @@ public class BinaryHeap<E> implements Heap<E> {
 
     @Override
     public E replace(E element) {
-        return null;
+        if (Objects.isNull(element)) {
+            throw new RuntimeException("元素不能为空");
+        }
+        E root = null;
+        if (size == 0) {
+            elements[size++] = element;
+        } else {
+            root = elements[0];
+            elements[0] = element;
+            siftDown(0);
+        }
+        return root;
     }
 
 
