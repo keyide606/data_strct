@@ -63,7 +63,13 @@ public class BinaryHeap<E> implements Heap<E> {
 
     @Override
     public E remove() {
-        return null;
+        emptyCheck();
+        E element = get();
+        int lastIndex = --size;
+        elements[0] = elements[lastIndex];
+        elements[lastIndex] = null;
+        siftDown(0);
+        return element;
     }
 
     @Override
@@ -103,6 +109,7 @@ public class BinaryHeap<E> implements Heap<E> {
 
     /**
      * 二叉堆上滤
+     *
      * @param index
      */
     private void siftUp(int index) {
@@ -117,6 +124,25 @@ public class BinaryHeap<E> implements Heap<E> {
             index = parent;
         }
         elements[index] = e;
+    }
+
+    private void siftDown(int index) {
+        E element = elements[index];
+        while (index < size >> 2) {
+            int childLeft = (index << 1) + 1;
+            int childRight = childLeft + 1;
+            int childIndex = childLeft;
+            E child = elements[childLeft];
+            if (childRight < size && compare(elements[childRight], elements[childLeft]) > 0) {
+                child = elements[childIndex = childRight];
+            }
+            if (compare(element, child) >= 0) {
+                break;
+            }
+            elements[index] = child;
+            index = childIndex;
+        }
+        elements[index] = element;
     }
 
 
