@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b74a4d2-d862-4d8b-9a0e-8cc3c051e929" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/lwl/heap/BinaryHeap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/lwl/heap/Heap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lwl/heap/BinaryHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lwl/heap/BinaryHeap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,17 +187,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test (1)" />
@@ -229,7 +217,8 @@
       <workItem from="1709645521297" duration="288000" />
       <workItem from="1709731099176" duration="1236000" />
       <workItem from="1710054694754" duration="3765000" />
-      <workItem from="1710558270382" duration="7686000" />
+      <workItem from="1710558270382" duration="8180000" />
+      <workItem from="1710655502117" duration="934000" />
     </task>
     <servers />
   </component>
